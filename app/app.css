@@ -23,3 +23,20 @@ body {
 body {
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+.navbar{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.navItem{
+  color: #500073;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.navbarBody{
+  background-color: #B2A5FF;
+}

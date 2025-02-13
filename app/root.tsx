@@ -9,7 +9,6 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import "./app.css";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -25,6 +24,22 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+
+  const navbar = {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    letterSpacing: '1.5px'
+  };
+  
+  const navItem = {
+    color: '#500073',
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    fontFamily: 'Inter'
+  }
+
   return (
     <html lang="en">
       <head>
@@ -34,10 +49,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <nav>
-          <Link to="/employees">Employees</Link>
-          <Link to="/employees/new">New Employee</Link>
-          <Link to="/timesheets">Timesheets</Link>
+        <nav style={navbar}>
+          <Link to="/employees" style={navItem}>Employees</Link>
+          <Link to="/employees/new" style={navItem}>New Employee</Link>
+          <Link to="/timesheets" style={navItem}>Timesheets</Link>
         </nav>
         <hr />
         {children}

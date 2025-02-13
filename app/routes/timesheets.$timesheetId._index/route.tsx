@@ -96,15 +96,64 @@ export default function TimesheetPage() {
     }
   }, [actionData, currentTimesheet]);
 
+  const btn = {
+    backgroundColor: '#B2A5FF',
+    borderColor: '#500073',
+    borderRadius: '5px',
+    padding: '5px 10px',
+    fontFamily: 'Inter'
+  }
+
+  const employeeInfo = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    letterSpacing: '1.5px'
+  };
+  const employeeInfoBody = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    gap: '20px'
+  };
+  const empInfo = {
+    color: '#500073',
+    textTransform: 'capitalize',
+    fontFamily: 'Inter',
+    textAlign: 'center'
+  }
+  const empTitle = {
+    color: '#500073',
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    fontFamily: 'Inter',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  }
+  const formEntry = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  }
+  const formBody = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+    width: '20%'
+  } 
+
   return (
-    <div>
-      <h1>Timesheet Details</h1>
+    <div style={employeeInfo}>
+      <h1 style={empTitle}>Timesheet Details</h1>
       {isEditing ? (
         // Edit Mode: Show the form pre-filled with the current timesheet details.
-        <Form method="post">
-          <div>
-            <label htmlFor="start_time">Start Time</label>
+        <Form method="post" style={formBody}>
+          <div style={formEntry}>
+            <label style={empTitle} htmlFor="start_time">Start Time</label>
             <input
+              style={empInfo}
               type="datetime-local"
               name="start_time"
               id="start_time"
@@ -116,9 +165,10 @@ export default function TimesheetPage() {
               <p style={{ color: "red" }}>{actionData.errors.start_time}</p>
             )}
           </div>
-          <div>
-            <label htmlFor="end_time">End Time</label>
+          <div style={formEntry}>
+            <label style={empTitle} htmlFor="end_time">End Time</label>
             <input
+              style={empInfo}
               type="datetime-local"
               name="end_time"
               id="end_time"
@@ -129,9 +179,10 @@ export default function TimesheetPage() {
               <p style={{ color: "red" }}>{actionData.errors.end_time}</p>
             )}
           </div>
-          <div>
-            <label htmlFor="description">Description</label>
+          <div style={formEntry}>
+            <label style={empTitle} htmlFor="description">Description</label>
             <input
+              style={empInfo}
               type="text"
               name="description"
               id="description"
@@ -142,42 +193,42 @@ export default function TimesheetPage() {
           {actionData?.errors?.time && (
             <p style={{ color: "red" }}>{actionData.errors.time}</p>
           )}
-          <button type="submit">Save Changes</button>
-          <button type="button" onClick={() => setIsEditing(false)}>
+          <button type="submit" style={btn}>Save Changes</button>
+          <button type="button" style={btn} onClick={() => setIsEditing(false)}>
             Cancel
           </button>
         </Form>
       ) : (
         // View Mode: Display the timesheet details.
-        <>
-          <p>
+        <div style={employeeInfoBody}>
+          <p style={empInfo}>
             <strong>Timesheet ID:</strong> {currentTimesheet.id}
           </p>
-          <p>
+          <p style={empInfo}>
             <strong>Employee:</strong> {currentTimesheet.full_name}
           </p>
-          <p>
+          <p style={empInfo}>
             <strong>Start Time:</strong> {currentTimesheet.start_time}
           </p>
-          <p>
+          <p style={empInfo}>
             <strong>End Time:</strong> {currentTimesheet.end_time}
           </p>
-          <p>
+          <p style={empInfo}>
             <strong>Description:</strong>{" "}
             {currentTimesheet.description || "N/A"}
           </p>
-          <button onClick={() => setIsEditing(true)}>Edit Timesheet</button>
-        </>
+          <button onClick={() => setIsEditing(true)} style={btn}>Edit Timesheet</button>
+        </div>
       )}
       <hr />
-      <ul>
+      {/* <ul>
         <li>
           <a href="/timesheets">Back to Timesheets</a>
         </li>
         <li>
           <a href="/employees">Employees</a>
         </li>
-      </ul>
+      </ul> */}
     </div>
   );
 }

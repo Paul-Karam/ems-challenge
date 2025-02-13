@@ -31,14 +31,6 @@ export const action: ActionFunction = async ({ request }) => {
     }
   }
 
-  // // If there are errors, return them along with the submitted values.
-  // if (Object.keys(errors).length > 0) {
-  //   return json(
-  //     { errors, values: Object.fromEntries(formData) },
-  //     { status: 400 }
-  //   );
-  // }
-
   
   const db = await getDB();
   await db.run(
@@ -58,13 +50,55 @@ export default function NewTimesheetPage() {
     values?: Record<string, string>;
   };
 
+  const btn = {
+    backgroundColor: '#B2A5FF',
+    borderColor: '#500073',
+    borderRadius: '5px',
+    padding: '5px 10px',
+    fontFamily: 'Inter'
+  }
+  
+  const timesheetInfo = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    letterSpacing: '1.5px'
+  };
+  const empInfo = {
+    color: '#500073',
+    textTransform: 'capitalize',
+    fontFamily: 'Inter',
+    textAlign: 'center'
+  }
+  const empTitle = {
+    color: '#500073',
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    fontFamily: 'Inter',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  }
+  const formEntry = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  }
+  const formBody = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+    width: '20%'
+  }
+
   return (
-    <div>
-      <h1>Create New Timesheet</h1>
-      <Form method="post">
-        <div>
-          <label htmlFor="employee_id">Employee</label>
+    <div style={timesheetInfo}>
+      <h1 style={empTitle}>Create New Timesheet</h1>
+      <Form method="post" style={formBody}>
+        <div style={formEntry}>
+          <label style={empTitle} htmlFor="employee_id">Employee</label>
           <select
+            style={empInfo}
             name="employee_id"
             id="employee_id"
             defaultValue={actionData?.values?.employee_id || ""}
@@ -81,9 +115,10 @@ export default function NewTimesheetPage() {
             <p style={{ color: "red" }}>{actionData.errors.employee_id}</p>
           )}
         </div>
-        <div>
-          <label htmlFor="start_time">Start Time</label>
+        <div style={formEntry}>
+          <label style={empTitle} htmlFor="start_time">Start Time</label>
           <input
+            style={empInfo}
             type="datetime-local"
             name="start_time"
             id="start_time"
@@ -94,9 +129,10 @@ export default function NewTimesheetPage() {
             <p style={{ color: "red" }}>{actionData.errors.start_time}</p>
           )}
         </div>
-        <div>
-          <label htmlFor="end_time">End Time</label>
+        <div style={formEntry}>
+          <label style={empTitle} htmlFor="end_time">End Time</label>
           <input
+            style={empInfo}
             type="datetime-local"
             name="end_time"
             id="end_time"
@@ -107,9 +143,10 @@ export default function NewTimesheetPage() {
             <p style={{ color: "red" }}>{actionData.errors.end_time}</p>
           )}
         </div>
-        <div>
-          <label htmlFor="description">Summary</label>
+        <div style={formEntry}>
+          <label style={empTitle} htmlFor="description">Summary</label>
           <input
+            style={empInfo}
             type="text"
             name="description"
             id="description"
@@ -120,17 +157,8 @@ export default function NewTimesheetPage() {
         {actionData?.errors?.time && (
           <p style={{ color: "red" }}>{actionData.errors.time}</p>
         )}
-        <button type="submit">Create Timesheet</button>
+        <button type="submit" style={btn}>Create Timesheet</button>
       </Form>
-      <hr />
-      <ul>
-        <li>
-          <a href="/timesheets">Timesheets</a>
-        </li>
-        <li>
-          <a href="/employees">Employees</a>
-        </li>
-      </ul>
     </div>
   );
 }
