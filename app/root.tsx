@@ -5,6 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  Link
 } from "react-router";
 
 import type { Route } from "./+types/root";
@@ -33,6 +34,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <nav>
+          <Link to="/employees">Employees</Link>
+          <Link to="/employees/new">New Employee</Link>
+          <Link to="/timesheets">Timesheets</Link>
+        </nav>
+        <hr />
         {children}
         <ScrollRestoration />
         <Scripts />

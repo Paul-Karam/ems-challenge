@@ -1,5 +1,4 @@
-import { useLoaderData } from "react-router";
-import { useState } from "react";
+import { useLoaderData, Link } from "react-router";
 import { getDB } from "~/db/getDB";
 
 export async function loader() {
@@ -12,7 +11,7 @@ export async function loader() {
 }
 
 export default function TimesheetsPage() {
-  const { timesheetsAndEmployees } = useLoaderData();
+  const { timesheetsAndEmployees } = useLoaderData() as { timesheetsAndEmployees: any[] };
 
   return (
     <div>
@@ -26,9 +25,13 @@ export default function TimesheetsPage() {
           {timesheetsAndEmployees.map((timesheet: any) => (
             <div key={timesheet.id}>
               <ul>
-                <li>Timesheet #{timesheet.id}</li>
+                <li>
+                  <Link to={`/timesheets/${timesheet.id}`}>
+                    Timesheet #{timesheet.id}
+                  </Link>
+                </li>
                 <ul>
-                  <li>Employee: {timesheet.full_name} (ID: {timesheet.employee_id})</li>
+                  <li> Employee: <Link to={`/employees/${timesheet.employee_id}`}>{timesheet.full_name}</Link> (ID: {timesheet.employee_id})</li>
                   <li>Start Time: {timesheet.start_time}</li>
                   <li>End Time: {timesheet.end_time}</li>
                 </ul>
